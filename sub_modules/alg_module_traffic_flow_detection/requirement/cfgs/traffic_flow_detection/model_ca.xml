@@ -1,0 +1,13 @@
+<xml>
+    <resource_usage>
+        <!-- 模型需要的内存，单位mb，字段不存在时默认为50 -->
+        <memory>50</memory >
+        <!-- 模型需要的计算卡内存，单位mb，字段不存在时默认为100 -->
+        <tpu_memory>100</tpu_memory>
+        <!-- 模型需要的cpu负载，单位%，一个核心满载为100，字段不存在时默认为5 -->
+        <cpu_util>5</cpu_util>
+        <!-- 模型需要的计算卡核心负载，单位%，一个核心满载为100，字段不存在时默认为5 -->
+        <tpu_util>5</tpu_util>
+    </resource_usage>
+    <input_shapes>1,3,224,224</input_shapes>
+</xml>

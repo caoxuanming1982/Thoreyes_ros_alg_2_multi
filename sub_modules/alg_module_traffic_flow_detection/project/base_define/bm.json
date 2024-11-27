@@ -1,0 +1,35 @@
+{
+    "init_env":[
+        "find_package(libsophon REQUIRED)",
+        "include_directories(${LIBSOPHON_INCLUDE_DIRS})",
+        "link_directories(${LIBSOPHON_LIB_DIRS})",
+        "set(SOPHON_LIBS bmion bmjpuapi bmjpulite bmlib bmrt bmvideo bmvppapi bmvpulite vpp cpuop usercpu vpp yuv video_bm bmcv)",
+        "",
+        "set(FFMPEG_DIR  /opt/sophon/sophon-ffmpeg-latest/lib/cmake)",
+        "find_package(FFMPEG REQUIRED NO_DEFAULT_PATH)",
+        "include_directories(${FFMPEG_INCLUDE_DIRS})",
+        "link_directories(${FFMPEG_LIB_DIRS})",
+        "",
+        "set(OpenCV_DIR /opt/sophon/sophon-opencv-latest/lib/cmake/opencv4)",
+        "find_package(OpenCV REQUIRED NO_DEFAULT_PATH)",
+        "include_directories(${OpenCV_INCLUDE_DIRS})",
+        "",
+        "include_directories(/opt/sophon/sophon-sail/include)",
+        "link_directories(/opt/sophon/sophon-sail/lib)",
+        "",
+        "ADD_DEFINITIONS(-DUSE_BMCV -DUSE_FFMPEG -DUSE_OPENCV -D__DISPLAY__)",
+        "if(X86_64)",
+        "  ADD_DEFINITIONS(-DUSE_PCIE -DBM_PCIE_MODE)",
+        "endif()",
+        ""
+    ],
+    "init_env_only_link":[
+        "find_package(libsophon REQUIRED)",
+        "include_directories(${LIBSOPHON_INCLUDE_DIRS})",
+        "set(OpenCV_DIR /opt/sophon/sophon-opencv-latest/lib/cmake/opencv4)",
+        "find_package(OpenCV REQUIRED NO_DEFAULT_PATH)",
+        "include_directories(${OpenCV_INCLUDE_DIRS})"    
+    ],
+    "link_lib":"${FFMPEG_LIBS} ${OpenCV_LIBS} ${SOPHON_LIBS} ${tinyxml2_LIBRARIES} sail ",
+    "source_path":"export LD_LIBRARY_PATH=/opt/sophon/sophon-opencv-latest/lib/:/opt/sophon/sophon-ffmpeg-latest/lib/:/opt/sophon/libsophon-current/lib/:/opt/sophon/sophon-sail/lib/:$LD_LIBRARY_PATH"
+}

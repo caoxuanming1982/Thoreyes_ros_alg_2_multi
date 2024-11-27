@@ -1,0 +1,107 @@
+<xml>
+    <module_name>burst_into_ban_detection</module_name>
+    <int>
+        <!-- 调用频率，单位毫秒 -->
+        <tick_interval>2000</tick_interval>
+        <!-- Duplicate_remover -->
+        <!-- 重复报的最小间隔，间隔为 n*tick_interval ms -->
+        <min_interval>100</min_interval>
+        <!-- 重复报的最长间隔，间隔为 n*tick_interval ms -->
+        <max_interval>500</max_interval>
+
+        <!-- 是否开启二轮车闯入中交警过滤功能 0为关闭 1为开启 -->
+        <is_filter_police>0</is_filter_police>
+
+        <!-- 可视化目标框 -->
+        <!-- 目标框颜色 -->
+        <box_color_blue>255</box_color_blue>
+        <box_color_green>0</box_color_green>
+        <box_color_red>0</box_color_red>
+        <!-- 目标框宽度 -->
+        <box_thickness>3</box_thickness>
+        
+        <!-- debug 
+            0   =false
+            1   =debug info (show all info)
+            11  =draw rectangle only
+            12  =draw rectangle and text
+        -->
+        <debug>0</debug>
+    </int>
+
+    <float>
+        <!-- 推理过程 -->
+        <!-- nms过程中的iou阈值，值越大，重叠的车辆和人更容易被区分，但可能会出现一个人身上复数框的情况 -->
+        <thresh_iou>0.5</thresh_iou>
+        <!-- nms过程中的分数阈值，会过滤掉置信度低于阈值的物体 -->
+        <thresh_score>0.35</thresh_score>
+
+        <!-- 过滤过程 -->
+        <!-- 行人和非机动车去重，两者同时出现且iou大于阈值的时候去掉行人，保留机动车 -->
+        <man_non_motor_thresh_iou>0.5</man_non_motor_thresh_iou>
+        <!-- 行人得分阈值过滤 -->
+        <man_thresh_score>0.6</man_thresh_score>
+        <!-- 非机动车得分阈值过滤 -->
+        <non_motor_thresh_score>0.6</non_motor_thresh_score>
+        <!-- 此模块中无效 -->
+        <check_sensitivity_thres>0.5</check_sensitivity_thres>
+
+        <!-- 判断是否为施工人员 是施工人员的概率超过这个值 就会过滤检测结果 -->
+        <engineering_worker_score>0.5</engineering_worker_score>
+        <!-- 是施工人员的概率超过这个值 就会抑制事件结果 -->
+        <engineering_worker_thresh>0.01</engineering_worker_thresh>
+
+
+        <!-- Duplicate_remover -->        
+        <!-- 认为��个事件一定是同一个事件的相似度阈值 -->
+        <accept_sim_thres>0.7</accept_sim_thres>
+        <!-- 认为两个事件一定不是同一个事件的相似度阈值 -->
+        <trigger_sim_thres>0.0</trigger_sim_thres>
+        <!-- 认为两个事件一定可能是同一个事件的iou阈值 -->
+        <iou_thres>0.7</iou_thres>
+        <!-- 行人闯入事件中 去除车辆中的司机或者乘客等 人和车box的Iou阈值 值越大 判断越严格 值越小 越有可能把车辆周围行走的人去除 -->
+        <remove_person_iou_thres>0.9</remove_person_iou_thres>
+
+    </float>
+
+    <string>
+        <!-- 模型文件中的模型名 -->
+        <model_name>coco_7_class_352_640</model_name>
+        <!-- 模型文件名 -->
+        <model_path>coco_7_class_352_640.bmodel</model_path>
+        <!-- 模型配置文件路径 -->
+        <model_cfg_path>model_object.xml</model_cfg_path>
+
+        <!-- 判定交警模型文件中的模型名 -->
+        <is_police_model_name>is_police</is_police_model_name>
+        <!-- 判定交警模型文件名 -->
+        <is_police_model_path>ispolice.pt</is_police_model_path>
+        <!-- 判定模型配置文件路径 -->
+        <is_police_model_cfg_path>model_ispolice.xml</is_police_model_cfg_path>
+
+        <!-- 模型文件中的模型名 -->
+        <worker_classify_model_name>worker_classify</worker_classify_model_name>
+        <!-- 模型文件名 -->
+        <worker_classify_model_path>worker_classify.bmodel</worker_classify_model_path>
+        <!-- 模型配置  root_dir/cfgs/xxx.xml -->
+        <worker_classify_model_cfg_path>model_worker_classify.xml</worker_classify_model_cfg_path>
+
+    </string>
+    
+    <input_cfg>
+        <image type="Image_cv" />
+    </input_cfg>
+
+    <output_cfg>
+        <result type="Result_Detect"/>
+    </output_cfg>
+
+    <publish_cfg_raw>
+        <result topic_name="/yolo_test/result" need_publish="false" />
+    </publish_cfg_raw>
+
+    <publish_cfg_filter>
+        <result topic_name="/yolo_test/result_event" need_publish="false" />
+    </publish_cfg_filter>
+
+</xml>

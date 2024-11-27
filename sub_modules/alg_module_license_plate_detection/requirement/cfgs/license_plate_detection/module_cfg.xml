@@ -1,0 +1,54 @@
+<xml>
+    <module_name>license_plate_detection</module_name>
+
+    <int>
+        <!-- 调用频率，单位毫秒，永不主动调用 -->
+        <tick_interval>-1</tick_interval>
+        <!-- 目标框相关，无效 -->
+        <box_color_blue>255</box_color_blue>
+        <box_color_green>0</box_color_green>
+        <box_color_red>0</box_color_red>
+        <box_thickness>3</box_thickness>
+    </int>
+
+    <float>
+        <!-- 该参数无效，车牌检测中只选择分数最大目标框 -->
+        <thresh_iou>0.5</thresh_iou>
+        <!-- 仅对分数超过该阈值的目标框进行推理 -->
+        <thresh_score>0.4</thresh_score>
+        <!-- 最小目标框宽度 -->
+        <min_lp_width>50</min_lp_width>
+        <!-- 最小目标框高度 -->
+        <min_lp_height>16</min_lp_height>
+        <min_car_width>300</min_car_width>
+        <min_car_height>250</min_car_height>
+    </float>
+
+    <string>
+        <!-- 模型名称/网络名称 -->
+        <model_name>license_detect</model_name>
+        <!-- 模型路径 root_dir/cfgs/xxx.bmodel -->
+        <model_path>license_detect_320_320.pt</model_path>
+    	<!-- 模型配置  root_dir/cfgs/xxx.xml -->
+	    <model_cfg_path>model_object.xml</model_cfg_path>
+    </string>
+    
+    <input_cfg>
+        <image type="Image_bm" />
+        <vehicle type="Result_Detect"/>
+    </input_cfg>
+
+    <output_cfg>
+        <license type="result_detect_license_t"/>
+    </output_cfg>
+
+    <publish_cfg_raw>
+        <result topic_name="/yolo_test/result" need_publish="false" />
+    </publish_cfg_raw>
+
+    <publish_cfg_filter>
+        <result topic_name="/yolo_test/result_event" need_publish="false" />
+    </publish_cfg_filter>
+
+
+</xml>

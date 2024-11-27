@@ -1,0 +1,1 @@
+./build/alg_module_bus_detection_main /home/vensin/workspace_sun/test_data/bus/1.mp4

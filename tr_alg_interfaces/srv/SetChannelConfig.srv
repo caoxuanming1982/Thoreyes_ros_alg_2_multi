@@ -1,0 +1,6 @@
+string mode
+string cfg_file_path
+string channel_topic_name
+---
+int32 res
+string message

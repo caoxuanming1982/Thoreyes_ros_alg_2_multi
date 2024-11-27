@@ -1,0 +1,56 @@
+<xml>
+    <module_name>license_plate_recognition</module_name>
+
+    <int>
+        <!-- 调用频率，单位毫秒，永不主动调用 -->
+        <tick_interval>-1</tick_interval>
+        <!-- 目标框相关，无效 -->
+        <box_color_blue>255</box_color_blue>
+        <box_color_green>0</box_color_green>
+        <box_color_red>0</box_color_red>
+        <box_thickness>3</box_thickness>
+
+    </int>
+
+    <float>
+        <!-- 单行车牌识别的置信度 -->
+        <single_thresh_score>0.1</single_thresh_score>
+        <!-- 双行车牌识别的置信度 -->
+        <double_thresh_score>0.1</double_thresh_score>
+    </float>
+
+    <string>
+        <!-- 模型名称/网络名称 -->
+        <single_model_name>LR</single_model_name>
+        <!-- 模型路径 root_dir/cfgs/xxx.bmodel -->
+        <single_model_path>LR.bmodel</single_model_path>
+        <!-- 模型配置  root_dir/cfgs/xxx.xml -->
+        <single_model_cfg_path>model_LR.xml</single_model_cfg_path>
+
+        <!-- 模型名称/网络名称 -->
+        <model_name>recogni_net</model_name>
+        <!-- 模型路径 root_dir/cfgs/xxx.bmodel -->
+        <model_path>license.bmodel</model_path>
+        <!-- 模型配置  root_dir/cfgs/xxx.xml -->
+        <model_cfg_path>model_object.xml</model_cfg_path>
+    </string>
+    
+    <input_cfg>
+        <image type="Image_bm" />
+        <vehicle type="Result_Detect"/>
+        <license type="result_detect_license_t"/>
+    </input_cfg>
+
+    <output_cfg>
+        <result type="result_detect_license_t"/>
+    </output_cfg>
+
+    <publish_cfg_raw>
+        <result topic_name="/yolo_test/result" need_publish="false" />
+    </publish_cfg_raw>
+
+    <publish_cfg_filter>
+        <result topic_name="/yolo_test/result_event" need_publish="false" />
+    </publish_cfg_filter>
+
+</xml>

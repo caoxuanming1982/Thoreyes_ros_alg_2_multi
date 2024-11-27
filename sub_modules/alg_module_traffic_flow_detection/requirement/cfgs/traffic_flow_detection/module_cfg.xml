@@ -1,0 +1,72 @@
+<xml>
+    <module_name>traffic_flow_detection</module_name>
+
+    <int>
+        <!-- 调用频率，单位毫秒 -->
+        <tick_interval>100</tick_interval>
+
+        <!-- 目标框相关 -->
+        <!-- 目标框颜色 -->
+        <box_color_blue>255</box_color_blue>
+        <box_color_green>0</box_color_green>
+        <box_color_red>0</box_color_red>
+        <!-- 目标框宽度 -->
+        <box_thickness>3</box_thickness>
+
+        <!-- 事件的最大记录时间, 超出该时间事件触发id会从已触发中删除, 因此相同事件会重新报出 -->
+        <max_record_time_for_event>200</max_record_time_for_event>
+        <!-- 每一条轨迹中质心的最大记录数量, 记录是轨迹中质心的数量, 记录的质心数量超出该方法会以 FIFO 的方式删除 -->
+        <max_record_time_for_trajectory>100</max_record_time_for_trajectory>
+        <!-- 每条轨迹的最大等待时间，轨迹的上一次更新超出该时间会被删除 -->
+        <max_wait_time>10</max_wait_time>
+        <!-- 检测变道事件时需要的最少轨迹点 -->
+        <min_point_for_direction>2</min_point_for_direction>
+
+        <real_time>1</real_time>
+        
+        <!-- debug 
+            0=false
+            1=save all debug info
+            2=only save input image to /data/storage/{module_name}/input_image
+            3=only save event image to /data/storage/{module_name}/event_image
+            4=only output char info in out.log
+        -->
+        <debug>1</debug>
+        <need_vehicle_attr>1</need_vehicle_attr>
+    </int>
+
+    <float>
+    </float>
+    
+    <string>
+        <!-- 模型名称 -->
+        <ca_model_name>Car_attr</ca_model_name>
+        <!-- 模型路径 root_dir/cfgs/***.bmodel -->
+
+        <!-- VER1.0 cost: 0.280786 max_cost: 0.358281 -->
+        <!-- VER2.0 cost: 0.219186 max_cost: 0.270804 -->
+        <ca_model_path>CA.bmodel</ca_model_path>
+        <!-- 模型配置文件 root_dir/cfgs/***.xml -->
+        <ca_model_cfg_path>model_ca.xml</ca_model_cfg_path>
+    </string>
+    
+    <input_cfg>
+        <image type="Image_bm" />
+        <vehicle type="Result_Detect" from_module="detect_tracking" from_module_output_name="vehicle"/>
+        <license type="Result_Detect_license_t" from_module="detect_tracking" from_module_output_name="license"/>
+    </input_cfg>
+
+    <output_cfg>
+        <vehicle type="Result_Detect" />
+        <license type="Result_Detect_license_t" />
+    </output_cfg>
+
+    <publish_cfg_raw>
+        <result topic_name="/yolo_test/result" need_publish="false" />
+    </publish_cfg_raw>
+
+    <publish_cfg_filter>
+        <result topic_name="/yolo_test/result_event" need_publish="false" />
+    </publish_cfg_filter>
+
+</xml>

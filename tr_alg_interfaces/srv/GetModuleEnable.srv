@@ -1,0 +1,4 @@
+string channel_name
+---
+string[] module_name
+bool[] module_enable

@@ -1,0 +1,8 @@
+int32 cpu_load            #cpu per kernel on average
+int32 gpu_load            #gpu per kernel on average
+int32 memory              #kb
+int32 gpu_memory          #kb
+int32 force_get           #>0 for force 
+---
+int32[] device_id           #-1 for reject
+string message    

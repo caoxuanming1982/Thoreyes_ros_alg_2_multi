@@ -1,0 +1,50 @@
+<xml>
+    <module_name>bus_detection</module_name>
+
+    <int>
+        <!-- 调用频率，单位毫秒 -->
+        <tick_interval>100</tick_interval>
+
+        <!-- 目标框相关 -->
+        <!-- 目标框颜色 -->
+        <box_color_blue>255</box_color_blue>
+        <box_color_green>0</box_color_green>
+        <box_color_red>0</box_color_red>
+        <!-- 目标框宽度 -->
+        <box_thickness>3</box_thickness>
+    </int>
+
+    <float>
+        <!-- nms过程中的iou阈值，值越大，重叠的车辆和人更容易被区分，但可能会出现一个人身上复数框的情况 -->
+        <thresh_iou>0.5</thresh_iou>
+        <!-- nms过程中的分数阈值，会过滤掉置信度低于阈值的物体 -->
+        <thresh_score>0.1</thresh_score>
+    </float>
+
+    <string>
+        <!-- 模型名称 -->
+        <model_name>bus_352_640</model_name>
+        <!-- 模型路径 root_dir/cfgs/***.bmodel -->
+        <model_path>bus_352_640.bmodel</model_path>
+        <!-- 模型配置文件 root_dir/cfgs/***.xml -->
+        <model_cfg_path>model_object.xml</model_cfg_path>
+    </string>
+    
+    <input_cfg>
+        <image type="Image_bm" />
+    </input_cfg>
+
+    <output_cfg>
+        <result type="Result_Detect_license" />
+    </output_cfg>
+
+    <publish_cfg_raw>
+        <result topic_name="/yolo_test/result" need_publish="true" />
+    </publish_cfg_raw>
+
+    <publish_cfg_filter>
+        <result topic_name="/yolo_test/result_event" need_publish="true" />
+    </publish_cfg_filter>
+
+
+</xml>

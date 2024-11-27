@@ -1,0 +1,9 @@
+string channel_name
+string[] module_name
+uint8 MODE_ENABLE = 0
+uint8 MODE_DISABLE = 1
+uint8 MODE_RELOAD = 2
+uint8 mode
+---
+int32 res
+string message

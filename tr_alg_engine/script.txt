@@ -1,0 +1,1 @@
+export LD_LIBRARY_PATH=/usr/local/corex/libtorch-2.1.1+corex.4.1.2-linux_x86_64/lib/:/usr/local/corex/lib:/usr/local/corex/lib64/:/usr/local/lib:/data_temp/thoreyes_ix_cvcuda/ros/help_func_lib/lib:/data_temp/thoreyes_ix_cvcuda/ros/alg_module_base/lib:${LD_LIBRARY_PATH}

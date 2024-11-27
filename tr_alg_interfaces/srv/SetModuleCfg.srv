@@ -1,0 +1,5 @@
+string channel_name
+string cfg_path
+---
+int32 res
+string message

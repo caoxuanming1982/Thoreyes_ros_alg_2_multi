@@ -1,0 +1,95 @@
+<xml>
+    <module_name>detect_tracking</module_name>
+
+    <int_vector>
+        <!-- YOLO模型的检查结果 -->
+        <!-- [person, bicycle, car, motorcycle, bus, truck, face, license] -->
+        <classes>2,4,5,6</classes>
+
+    </int_vector>
+
+    <int>
+        <!-- 需要外部模块进行调用 -->
+        <tick_interval>200</tick_interval>
+
+        <!-- 目标框相关 -->
+        <!-- 目标框颜色 -->
+        <box_color_blue>255</box_color_blue>
+        <box_color_green>0</box_color_green>
+        <box_color_red>0</box_color_red>
+        <!-- 目标框宽度 -->
+        <box_thickness>30</box_thickness>
+
+        <!-- deepsort -->
+        <nn_budget>50</nn_budget>
+        <max_age>5</max_age>
+        <n_init>1</n_init>
+
+        <real_time>1</real_time>
+        <debug>0</debug>
+    </int>
+
+    <float>
+        <!-- nms过程中的iou阈值，值越大，重叠的车辆和人更容易被区分，但可能会出现一个人身上复数框的情况（不同类别的目标框即使重合率再大也不会被过滤） -->
+        <thresh_iou>0.5</thresh_iou>
+        <!-- nms过程中的分数阈值，会过滤掉置信度低于阈值的物体 -->
+        <thresh_score>0.4</thresh_score>
+        
+        <!-- filter过程中的参数 -->
+        <!-- 目标框占画面的最小比例 -->
+        <thresh_min_scale_for_box>0.04</thresh_min_scale_for_box>
+        <!-- 目标框占画面的最大比例 -->
+        <thresh_max_scale_for_box>0.5</thresh_max_scale_for_box>
+
+        <!-- deepsort -->
+        <max_cosine_distance>0.2</max_cosine_distance>
+        <max_iou_distance>0.8</max_iou_distance>
+    </float>
+
+    <string>
+        <!-- 模型名称 -->
+        <model_name>yolo_v5s</model_name>
+        <!-- 模型路径 root_dir/cfgs/***.bmodel -->
+        <model_path>yolov5s_352_640_sc5.bmodel</model_path>
+        <!-- 模型配置文件 root_dir/cfgs/***.xml -->
+        <model_cfg_path>model_object.xml</model_cfg_path>
+
+    </string>
+   
+    <input_cfg>
+        <image type="Image_bm" />
+    </input_cfg>
+
+    <output_cfg>
+        <result type="Result_Detect" />
+    </output_cfg>
+
+    <publish_cfg_raw>
+        <result topic_name="/yolo_test/result" need_publish="false" />
+    </publish_cfg_raw>
+
+    <publish_cfg_filter>
+        <result topic_name="/yolo_test/result_event" need_publish="false" />
+    </publish_cfg_filter>
+
+    <post_process_cfg>													
+        <license_plate_detection>															
+                <input_map>																	
+                        <param output_name="vehicle" module_input_name="vehicle" />	
+                </input_map>
+                <output_map>																
+                        <param output_name="license" module_output_name="license" />			
+                </output_map>
+        </license_plate_detection>
+        <license_plate_recognition>															
+                <input_map>																	
+                        <param output_name="vehicle" module_input_name="vehicle" />	
+                        <param output_name="license" module_input_name="license" />	
+                </input_map>
+                <output_map>																
+                        <param output_name="license" module_output_name="license" />			
+                </output_map>
+        </license_plate_recognition>
+    </post_process_cfg>
+
+</xml>
