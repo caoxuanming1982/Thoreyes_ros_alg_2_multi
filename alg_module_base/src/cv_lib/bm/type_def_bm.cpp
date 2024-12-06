@@ -52,6 +52,14 @@ std::shared_ptr<QyImage> QyImage_bm::crop(cv::Rect box){
     box_bm.start_y=box.y;
     box_bm.crop_w=box.width;
     box_bm.crop_h=box.height;
+#if 0
+    if(box_bm.crop_w <= 0 ){
+        box_bm.crop_w = this->data.image.width;
+    }
+    if(box_bm.crop_h <= 0 ){
+        box_bm.crop_h = this->data.image.height;
+    }
+#endif
     bm_image_alloc_dev_mem(result->data.image);
     bmcv_image_vpp_convert(result->data.handle, 1, this->data.image, &(result->data.image), &box_bm);
     std::shared_ptr<QyImage> result_out=result;
@@ -69,6 +77,14 @@ std::shared_ptr<QyImage> QyImage_bm::resize(int width,int height,bool use_biline
     box_bm.start_y=0;
     box_bm.crop_w=this->get_width();
     box_bm.crop_h=this->get_height();
+#if 0
+    if(box_bm.crop_w <= 0 ){
+        box_bm.crop_w = this->data.image.width;
+    }
+    if(box_bm.crop_h <= 0 ){
+        box_bm.crop_h = this->data.image.height;
+    }	
+#endif
     if(use_bilinear){
         bmcv_image_vpp_convert(result->data.handle, 1, this->data.image, &(result->data.image), &box_bm);
     }
@@ -92,6 +108,14 @@ std::shared_ptr<QyImage> QyImage_bm::crop_resize(cv::Rect box,int width,int heig
     box_bm.start_y=box.y;
     box_bm.crop_w=box.width;
     box_bm.crop_h=box.height;
+#if 0
+    if(box_bm.crop_w <= 0 ){
+        box_bm.crop_w = this->data.image.width;
+    }
+    if(box_bm.crop_h <= 0 ){
+        box_bm.crop_h = this->data.image.height;
+    }
+#endif
     if(use_bilinear){
         bmcv_image_vpp_convert(result->data.handle, 1, this->data.image, &(result->data.image), &box_bm);
     }

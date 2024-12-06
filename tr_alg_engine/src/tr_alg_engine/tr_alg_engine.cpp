@@ -37,10 +37,10 @@ bool Tr_Alg_Engine_module::init(std::string submodule_dir,std::string requiremen
 bool Tr_Alg_Engine_module::init_(std::string submodule_dir,std::string requirement_dir){
     engine.set_add_reduce_instance_thres(0.7,0.3);
     if (submodule_dir==""){
-        submodule_dir="/data_temp/thoreyes/ros/alg_module_submodules/lib/";
+        submodule_dir="/data/thoreyes/ros/alg_module_submodules/lib/";
     }
     if(requirement_dir==""){
-        requirement_dir="/data_temp/thoreyes/ros/requirement/";
+        requirement_dir="/data/thoreyes/ros/requirement/";
     }
     try
     {

@@ -41,7 +41,7 @@ endif()
 
 
 if(USE_BM)
-  SET(CMAKE_INSTALL_PREFIX /data_temp/thoreyes/ros/alg_module_base)
+  SET(CMAKE_INSTALL_PREFIX /data/thoreyes/ros/alg_module_base)
 
 # add libsophon
   find_package(libsophon REQUIRED)
@@ -77,7 +77,7 @@ if(USE_BM)
   endif()
   
 elseif(USE_IX)
-  SET(CMAKE_INSTALL_PREFIX /data_temp/thoreyes_ix/ros/alg_module_base)
+  SET(CMAKE_INSTALL_PREFIX /data/thoreyes_ix/ros/alg_module_base)
   ADD_DEFINITIONS(-DUSE_IX)
   set(Torch_DIR  /opt/libtorch/share/cmake/Torch)
   set(ATen_DIR  /opt/libtorch/share/cmake/ATen)
@@ -142,7 +142,7 @@ elseif(USE_IX)
   endif()
 
 else()
-  SET(CMAKE_INSTALL_PREFIX /data_temp/thoreyes_nv/ros/alg_module_base)
+  SET(CMAKE_INSTALL_PREFIX /data/thoreyes_nv/ros/alg_module_base)
 #  SET(CMAKE_INSTALL_PREFIX /data/thoreyes/ros/alg_module_base_nv)
   set(Torch_DIR  /opt/libtorch/share/cmake/Torch)
   set(ATen_DIR  /opt/libtorch/share/cmake/ATen)
